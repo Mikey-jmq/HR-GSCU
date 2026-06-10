@@ -1,0 +1,50 @@
+﻿# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Training outputs and checkpoints
+down_results/
+full_results/
+result/
+runs/
+outputs/
+checkpoints/
+*.pth
+*.pt
+*.pkl
+*.ckpt
+
+# Datasets and large local artifacts
+data/
+dataset/
+datasets/
+*.h5
+*.hdf5
+*.mat
+*.tif
+*.tiff
+*.png
+*.jpg
+*.jpeg
+
+# Build/package artifacts
+build/
+dist/
+*.egg-info/
+*.whl
+*.bmp
+*.gif
+*.webp
