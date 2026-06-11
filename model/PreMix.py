@@ -20,7 +20,6 @@ class PreMixHuge(nn.Module):
     def __init__(self, ms_channels, embed_dim=32, kernel_size=3, pf_kernel=3,enable_EWFM=True, num_layers=3, beta=0.1, act="tanh+relu"):
         super().__init__()
 
-        # 2. 原作者的组件保持完全一致
         self.model1 = nn.ModuleList(
             [PreMixModel(i, ms_channels, embed_dim, kernel_size, pf_kernel, enable_EWFM, num_layers, beta, act) for i in
              range(3)])
@@ -66,7 +65,6 @@ class PreMixHuge_PGCU(nn.Module):
 
         self.PGCU = PGCU(4, 128)
 
-        # 2. 原作者的组件保持完全一致
         self.model1 = nn.ModuleList(
             [PreMixModel(i, ms_channels, embed_dim, kernel_size, pf_kernel, enable_EWFM, num_layers, beta, act) for i in
              range(3)])
@@ -109,7 +107,6 @@ class PreMixHuge_GSCU(nn.Module):
 
         self.GSCU = GaussianSplatter(kernel_size=5, c1=6, channels=ms_channels, n_feats=48, n_classes=50)
 
-        # 2. 原作者的组件保持完全一致
         self.model1 = nn.ModuleList(
             [PreMixModel(i, ms_channels, embed_dim, kernel_size, pf_kernel, enable_EWFM, num_layers, beta, act) for i in
              range(3)])
