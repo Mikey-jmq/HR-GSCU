@@ -144,7 +144,6 @@ class Encoder(nn.Module):
             nn.Sigmoid()
         )
         ####特征计算分支
-        #多尺度下采样
         self.downsample_pan = nn.Sequential(
             nn.Conv2d(1, channels, kernel_size=3, stride=2, padding=1),
             nn.ReLU(),
@@ -239,7 +238,7 @@ class GaussianSplatter(nn.Module):
         """
         super(GaussianSplatter, self).__init__()
         self.encoder = Encoder(channels=channels, n_feats=n_feats,n_classes=n_classes)
-        self.feat, self.logits = None, None  # 后续会有编码器生成这个
+        self.feat, self.logits = None, None  
         # Key parameter in 2D Gaussian Splatter参数
         self.kernel_size = kernel_size
         self.row = unfold_row
@@ -259,7 +258,7 @@ class GaussianSplatter(nn.Module):
             nn.Conv2d(n_feats, channels, kernel_size=3, padding=1)
         )
         self.residual = nn.Conv2d(n_feats, channels, kernel_size=1)
-        # 高斯分布生成组合（不要cuda的版本）
+        # 高斯分布生成组合
         sigma_x_samples = torch.normal(mean=1.2, std=0.6, size=(n_classes,)).clamp(0, 2.4).cuda()
         sigma_y_samples = torch.normal(mean=1.1, std=0.55, size=(n_classes,)).clamp(0, 2.2).cuda()
         rho_samples = torch.normal(mean=0.3, std=0.6, size=(n_classes,)).clamp(-0.9, 1.5).cuda()
@@ -376,7 +375,7 @@ class GaussianSplatter(nn.Module):
         unfold_V1_reshaped = unfold_V1.view(batch_size, channel, num_LR_points)  # (B, 8, 64)
         unfold_V1_weights = torch.softmax(unfold_V1_reshaped, dim=1)  # (B, 8, 64)
         kernel_channel = kernel_normalized.unsqueeze(0).unsqueeze(2).repeat(batch_size, 1, channel, 1,1)  # (B, 64, 8, kernel_size, kernel_size)
-        # V1添加通道注意力，每个通道在每个像素处的高斯核不相同
+
         kernel_color = kernel_channel * unfold_V1_weights.permute(0, 2, 1).unsqueeze(-1).unsqueeze(-1)  # (B, 64, 8, kernel_size, kernel_size)
         kernel_color = kernel_color.view(batch_size * num_LR_points, channel, self.kernel_size,self.kernel_size)  # (B*64, 8, kernel_size, kernel_size)
 
