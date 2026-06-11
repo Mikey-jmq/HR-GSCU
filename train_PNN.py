@@ -31,7 +31,7 @@ else:
 epoches = 1500
 batch_size = 6
 # prepare dataset&dataloader
-data_root = "d:/Users/Administrator/Desktop/GSCU/数据/WV3_data1/WV3_data1"
+data_root = "d:/Users/Administrator/Desktop/GSCU/data/WV3_data1/WV3_data1"
 train_pan = 'train128/pan'
 train_ms = 'train128/ms'
 test_pan = 'test128/pan'
